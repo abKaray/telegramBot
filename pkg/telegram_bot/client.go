@@ -1,4 +1,4 @@
-package telegramBot
+package telegram_bot
 
 import (
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
@@ -6,10 +6,14 @@ import (
 )
 
 const (
-	defaultTimeout = 60
+	defaultTimeoutMilliseconds = 60
 )
 
-func initTelegram(cfg *TelegramBot) *TelegramBotImpl {
+type TelegramBotImpl struct {
+	Bot *tgbotapi.BotAPI
+}
+
+func NewTelegramImp(cfg *TelegramBot) *TelegramBotImpl {
 	bot, err := tgbotapi.NewBotAPI(cfg.ApiToken)
 
 	if err != nil {
@@ -20,8 +24,11 @@ func initTelegram(cfg *TelegramBot) *TelegramBotImpl {
 }
 
 func (t *TelegramBotImpl) ListenForMessage(fn func(message tgbotapi.Update)) {
-	u := tgbotapi.NewUpdate(0)
-	u.Timeout = defaultTimeout
+	u := tgbotapi.UpdateConfig{
+		Offset:  0,
+		Limit:   0,
+		Timeout: defaultTimeoutMilliseconds,
+	}
 
 	updates := t.Bot.GetUpdatesChan(u)
 
