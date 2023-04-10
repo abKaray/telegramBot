@@ -2,14 +2,14 @@ package di
 
 import (
 	"go.uber.org/fx"
-	"telegram_bot/modules/chatGPT"
-	"telegram_bot/modules/telegramBot"
+	"telegram_bot/pkg/chat_gpt"
+	"telegram_bot/pkg/telegram_bot"
 )
 
 func AppProviders() []fx.Option {
 	modules := []fx.Option{
-		telegramBot.Module,
-		chatGPT.Module,
+		telegram_bot.Module,
+		chat_gpt.Module,
 	}
 
 	return modules

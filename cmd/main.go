@@ -2,11 +2,11 @@ package main
 
 import (
 	"telegram_bot/di"
-	"telegram_bot/pkg/telegram_server"
+	"telegram_bot/modules/telegram_bot"
 )
 
 func main() {
-	fxOptions := di.GetAllOptions()
+	fxOptions := di.AppProviders()
 
-	telegram_server.StartTelegram(fxOptions)
+	telegram_bot.StartTelegram(fxOptions)
 }
